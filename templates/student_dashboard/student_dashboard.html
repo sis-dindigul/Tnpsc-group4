@@ -1,0 +1,66 @@
+{% include "student_dashboard/header.html" %}
+
+<section class="about_area section_gap">
+<div class="container-fluid">
+
+<div class="row justify-content-center">   <!-- 🔥 center row -->
+<div class="col-lg-6">   <!-- 🔥 center width -->
+
+<div class="h_blog_text text-center">  <!-- 🔥 center text -->
+<div class="h_blog_text_inner">
+
+<h3>TNPSC Group 4 Study Plan Generator</h3>
+
+<form method="POST" style="text-align:left;">  <!-- 🔥 form left, box centered -->
+
+<label>Select Subject:</label>
+<select name="subject" class="form-control" required>
+    <option value="">-- Select Subject --</option>
+    {% for s in subjects %}
+        <option value="{{ s }}">{{ s }}</option>
+    {% endfor %}
+</select>
+
+<br>
+
+<label>Last Date:</label>
+<input type="date" name="date" class="form-control" required>
+
+<br>
+
+<button type="submit" class="btn btn-primary w-100">Generate Plan</button>
+
+</form>
+
+<br>
+
+<a href="/download_pdf">
+    <button class="btn btn-success w-100">Download PDF</button>
+</a>
+
+<hr>
+
+{% for week in full_plan %}
+    <h4 class="text-primary">Week {{ week.week }}</h4>
+
+    {% for day in week.days %}
+        <p><b>{{ day.date }}</b></p>
+
+        <ul style="text-align:left;">
+            {% for task in day.schedule %}
+                <li>{{ task }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endfor %}
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+{% include "student_dashboard/footer.html" %}

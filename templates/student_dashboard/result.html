@@ -1,0 +1,58 @@
+{% include "student_dashboard/header.html" %}
+
+<section class="about_area section_gap">
+<div class="container-fluid">
+
+<div class="row justify-content-center">   <!-- 🔥 center -->
+<div class="col-lg-10">   <!-- 🔥 centered wide box -->
+
+<div class="h_blog_text text-center">
+<div class="h_blog_text_inner">
+
+<h2 class="mb-3">Your Score: {{ score }}</h2>
+
+<div style="overflow-x:auto;">
+
+<table class="table table-bordered table-striped">
+
+<tr>
+    <th>Question</th>
+    <th>Your Answer</th>
+    <th>Correct Answer</th>
+    <th>Status</th>
+</tr>
+
+{% for r in result_data %}
+<tr>
+    <td style="text-align:left;">{{ r.question }}</td>
+    <td>{{ r.user_answer }}</td>
+    <td>{{ r.correct_answer }}</td>
+
+    <td>
+        {% if r.status == "Correct" %}
+            <span style="color:green; font-weight:bold;">✔ Correct</span>
+        {% else %}
+            <span style="color:red; font-weight:bold;">✘ Wrong</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<br>
+
+<a href="{{url_for('student_dashboard')}}" class="btn btn-primary">Back</a>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+{% include "student_dashboard/footer.html" %}

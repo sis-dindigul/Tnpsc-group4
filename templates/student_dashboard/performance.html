@@ -1,0 +1,60 @@
+{% include "student_dashboard/header.html" %}
+
+<section class="about_area section_gap">
+<div class="container">
+<div class="row h_blog_item">
+
+<div class="col-lg-6">
+<div class="h_blog_img">
+<img class="img-fluid" src="{{ url_for('static', filename='img/about.png')}}" />
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="h_blog_text">
+<div class="h_blog_text_inner left right">
+
+<h3>Performance Analysis</h3>
+
+<table border="1" width="100%">
+<tr>
+<th>Test Date</th>
+<th>Score (25)</th>
+<th>Completed Time</th>
+<th>Percentage</th>
+<th>Status</th>
+</tr>
+
+{% for i in range(data|length) %}
+
+<tr>
+<td>{{ data[i][1] }}</td>
+<td>{{ data[i][0] }}</td>
+<td>{% if data[i][2] %}
+    {% set minutes = data[i][2]|int %}
+    {% set seconds = ((data[i][2] - minutes) * 60)|int %}
+    {{ minutes }} min {{ seconds }} sec
+{% else %}
+    <span style="color:gray;">Not Available</span>
+{% endif %}</td>
+<td>{{ percentages[i] }} %</td>
+
+<td>{{ status[i] }}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+{% include "student_dashboard/footer.html" %}

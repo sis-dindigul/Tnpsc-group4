@@ -1,0 +1,126 @@
+{% include "student_dashboard/header.html" %}
+
+<section class="about_area section_gap">
+<div class="container-fluid">
+
+<div class="row justify-content-center">   <!-- 🔥 center -->
+<div class="col-lg-8">   <!-- 🔥 centered box -->
+
+<div class="h_blog_text text-center">
+<div class="h_blog_text_inner">
+
+<h3>Mock Test</h3>
+
+<form method="POST" style="text-align:left;">
+
+<label>Select Subject:</label>
+<select name="subject" required class="form-control">
+    <option value="">-- Select Subject --</option>
+
+    {% for s in subjects %}
+        <option value="{{s.subject}}">{{s.subject}}</option>
+    {% endfor %}
+</select>
+
+<br>
+<button class="btn btn-primary w-100">Start Test</button>
+
+</form>
+
+{% if questions %}
+
+<hr>
+
+<form method="POST" action="{{ url_for('submit_test') }}" style="text-align:left;">
+
+<h5 class="text-danger text-center">⏳ Time Left: <span id="timer">10:00</span></h5>
+
+{% for q in questions %}
+
+    <div style="margin-bottom:20px;">
+
+    <p><b>{{ loop.index }}. {{ q.question }}</b></p>
+
+    <input type="hidden" name="question_ids" value="{{ q.id }}">
+
+    <div style="padding-left:15px;">
+        <input type="radio" name="{{ q.id }}" value="{{ q.option1 }}" required> {{ q.option1 }}<br>
+        <input type="radio" name="{{ q.id }}" value="{{ q.option2 }}"> {{ q.option2 }}<br>
+        <input type="radio" name="{{ q.id }}" value="{{ q.option3 }}"> {{ q.option3 }}<br>
+        <input type="radio" name="{{ q.id }}" value="{{ q.option4 }}"> {{ q.option4 }}<br>
+    </div>
+
+    </div>
+
+{% endfor %}
+
+<input type="hidden" name="start_time" id="start_time">
+<input type="hidden" name="time_taken" id="time_taken">
+
+<button type="submit" class="btn btn-success w-100">Submit Test</button>
+
+</form>
+
+{% endif %}
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+{% include "student_dashboard/footer.html" %}
+
+<script>
+let totalTime = 600; // 10 minutes
+let timeLeft = totalTime;
+
+// store start time safely
+window.onload = function () {
+    let startInput = document.getElementById("start_time");
+    if (startInput) {
+        startInput.value = new Date().toISOString();
+    }
+};
+
+let timer = setInterval(function () {
+
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    let timerElement = document.getElementById("timer");
+    if (timerElement) {
+        timerElement.innerHTML =
+            minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }
+
+    timeLeft--;
+
+    // ⏰ AUTO SUBMIT
+    if (timeLeft < 0) {
+        clearInterval(timer);
+
+        let timeTakenSeconds = totalTime; // full time
+        let timeTakenMinutes = (timeTakenSeconds / 60).toFixed(2);
+
+        document.getElementById("time_taken").value = timeTakenMinutes;
+
+        alert("Time's up! Auto submitting...");
+        document.forms[1].submit();
+    }
+
+}, 1000);
+
+
+// ✅ MANUAL SUBMIT (CORRECT FIX)
+document.forms[1].addEventListener("submit", function () {
+
+    let timeTakenSeconds = totalTime - timeLeft;  // ✅ correct
+    let timeTakenMinutes = (timeTakenSeconds / 60).toFixed(2);
+
+    document.getElementById("time_taken").value = timeTakenMinutes;
+});
+</script>
