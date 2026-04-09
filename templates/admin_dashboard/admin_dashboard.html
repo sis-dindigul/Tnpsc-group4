@@ -1,0 +1,41 @@
+{% include "admin_dashboard/header.html" %}
+<section class="about_area section_gap">
+      <div class="container">
+      </br>
+    </br>
+        <div class="row h_blog_item">
+          
+         
+<h3>Syllabus</h3>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Topic</th>
+            <th>Subtopic</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for subject, topics in syllabus.items() %}
+        {% for topic, subtopics in topics.items() %}
+            {% for sub in subtopics %}
+            <tr>
+                <td>{{ subject }}</td>
+                <td>{{ topic }}</td>
+                <td>{{ sub }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+
+    </tbody>
+</table>
+ </div>
+            </div>
+        
+    </section>
+
+{% include "admin_dashboard/footer.html" %}

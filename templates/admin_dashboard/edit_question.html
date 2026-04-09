@@ -1,0 +1,84 @@
+{% include "admin_dashboard/header.html" %}
+<section class="about_area section_gap">
+      <div class="container">
+        <div class="row h_blog_item">
+          <div class="col-lg-6">
+            <div class="h_blog_img">
+              <img class="img-fluid" src="{{ url_for('static', filename='img/about.png')}}" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="h_blog_text">
+              <div class="h_blog_text_inner left right">
+<h3>Edit Question</h3>
+
+<form method="POST">
+
+  <label>Select Subject:</label>
+<select name="subject" required class="form-control">
+    <option value="{{data[1]}}">{{data[1]}}</option>
+
+    {% for s in subjects %}
+        <option value="{{s[0]}}">{{s[0]}}</option>
+    {% endfor %}
+
+</select>
+<label>Select Topic:</label>
+<select name="topics" required class="form-control">
+    <option value="{{data[2]}}">{{data[2]}}</option>
+
+    {% for s in topic %}
+        <option value="{{s[0]}}">{{s[0]}}</option>
+    {% endfor %}
+
+</select>
+
+
+<label>Question</label>
+<textarea name="question" class="form-control">{{data[3]}}</textarea>
+
+<br>
+
+<label>Option 1</label>
+<input type="text" name="option1" value="{{data[4]}}" class="form-control">
+
+<br>
+
+<label>Option 2</label>
+<input type="text" name="option2" value="{{data[5]}}" class="form-control">
+
+<br>
+
+<label>Option 3</label>
+<input type="text" name="option3" value="{{data[6]}}" class="form-control">
+
+<br>
+
+<label>Option 4</label>
+<input type="text" name="option4" value="{{data[7]}}" class="form-control">
+
+<br>
+
+<label>Correct Answer</label>
+
+<select name="answer" class="form-control">
+
+<option value="1">Option 1</option>
+<option value="2">Option 2</option>
+<option value="3">Option 3</option>
+<option value="4">Option 4</option>
+
+</select>
+
+<br>
+
+<button class="btn btn-success">Update Question</button>
+
+</form>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% include "admin_dashboard/footer.html" %}

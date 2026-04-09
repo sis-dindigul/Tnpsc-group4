@@ -1,0 +1,57 @@
+{% include "admin_dashboard/header.html" %}
+<section class="about_area section_gap">
+      <div class="container">
+        <div class="row h_blog_item">
+          <div class="col-lg-6">
+            <div class="h_blog_img">
+              <img class="img-fluid" src="{{ url_for('static', filename='img/about.png')}}" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="h_blog_text">
+              <div class="h_blog_text_inner left right">
+<h3>Add New Materials</h3>
+
+<form method="POST" action="{{url_for('add_materials')}}" enctype="multipart/form-data">
+
+<label>Material Name</label>
+<textarea name="material_name" class="form-control" required></textarea>
+
+<br>
+
+<label>File</label>
+<input type="file" name="file" class="form-control" required>
+
+<br>
+
+
+<button class="btn btn-success">Add Materials</button>
+
+</form>
+<br>
+<h3>TNPSC Group 4 Previous Questions</h3>
+
+<form method="POST" action="{{url_for('add_questionpaper')}}" enctype="multipart/form-data">
+
+<label>Questions</label>
+<textarea name="question" class="form-control" required></textarea>
+
+<br>
+
+<label>File</label>
+<input type="file" name="file" class="form-control" required>
+
+<br>
+
+
+<button class="btn btn-success">Add Question Paper</button>
+
+</form>
+</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% include "admin_dashboard/footer.html" %}
